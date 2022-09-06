@@ -1,0 +1,137 @@
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  viewBox="-150 -150 300 300">
+
+  <defs>
+    <!--
+    Open arrow for vectors and axis
+    -->
+    <marker
+      id="open_arrow"
+      style="overflow:visible"
+      orient="auto-start-reverse">
+      <line
+        style="stroke:#000000"
+        x1="0"
+        y1="0"
+        x2="-10"
+        y2="-5"/>
+      <line
+        style="stroke:#000000"
+        x1="0"
+        y1="0"
+        x2="-10"
+        y2="5"/>
+    </marker>
+  </defs>
+
+  <!--
+  Unit circle and axis
+  circle is centered at O = (0,0) and its radius is 100 
+  -->
+  <ellipse
+    id="unit_circle"
+    style="fill:#ffffff;stroke:#000000;paint-order:fill"
+    cx="0"
+    cy="0"
+    rx="100"
+    ry="100" />
+  <line
+    id="y_axis"
+    style="stroke:#000000;marker-end:url(#open_arrow)"
+    x1="0"
+    y1="150"
+    x2="0"
+    y2="-150" />
+  <line
+    id="x_axis"
+    style="stroke:#000000;marker-end:url(#open_arrow)"
+    x1="-150"
+    y1="0"
+    x2="150"
+    y2="0" />
+  <text
+    id="label_point_O"
+    style="font-size:14px;font-family:Arial,sans-serif"
+    x="-13"
+    y="13">O</text>
+
+  <!-- 
+  Vector OM with alpha angle = pi/6
+    x1 = Ox
+    y1 = Oy
+    x2 = Ox + c*cos(pi/6)
+    y2 = Oy - radius*sin(pi/6)
+  -->
+  <line
+    id="vector_OM"
+    style="stroke:#000000;marker-end:url(#open_arrow)"
+    x1="0"
+    y1="0"
+    x2="86.6025403784"
+    y2="-50" />
+  <text
+    id="label_point_M"
+    style="font-size:14px;font-family:Arial,sans-serif"
+    x="90"
+    y="-50">M</text> 
+
+  <!--
+  Point M ordinate line marker
+    y = Oy - radius*sin(pi/6)
+    x1 = Ox
+    x2 = Ox + radius*cos(pi/6)
+  -->
+  <line
+    id="M_ordinate_marker"
+    style="stroke:#000000;stroke-dasharray:1.5,1.5;stroke-width:0.5"
+    x1="0"
+    y1="-50"
+    x2="86.6025403784"
+    y2="-50" />
+  <text
+    id="M_ordinate_value"
+    style="font-size:14px;font-family:Arial,sans-serif;"
+    x="-60"
+    y="-45">y = sin(α)</text>
+
+  <!--
+  Point M abscissa line marker
+    x = Ox + radius*cos(pi/6)
+    y1 = Oy
+    y2 = Oy - radius*sin(pi/6)
+  -->
+  <line
+    id="M_abscissa_marker"
+    style="stroke:#000000;stroke-dasharray:1.5,1.5;stroke-width:0.5"
+    x1="86.6025403784" 
+    y1="0"
+    x2="86.6025403784"
+    y2="-50" />
+  <text
+    id="M_abscissa_value"
+    style="font-size:14px;font-family:Arial,sans-serif;"
+    x="60"
+    y="15">x = cos(α)</text>
+
+  <!--
+  Angle alpha marker
+    radius = 30
+    angle = alpha = pi/6
+    center = O
+    start point : Ox + radius*cos(alpha) , Oy - radius*sin(alpha)
+    end point :   Ox + radius , Oy
+  -->
+  <path
+    id="arc_alpha"
+    style="fill-opacity:0;stroke:#000000;stroke-width:0.5"
+    d="M 25.9807621135,-15 A 30,30 0 0 1 30,0" />
+  <text
+    id="label_angle_alpha"
+    style="font-size:14px;font-family:Arial,sans-serif;"
+    x="30"
+    y="-5">α</text>
+    
+</svg>
