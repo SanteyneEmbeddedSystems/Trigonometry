@@ -7,10 +7,9 @@ as fix point.
 
 This algorithm is an implementation of the CORDIC algorithm.  
 To find the sine and cosine of an angle $\alpha$ belonging to the interval
-$\left[0;2\pi\right]$, the algorithm will determine the
-coordinates of the point of the trigonometric circle corresponding to it.  
-This point is known by the vector $\overrightarrow{v_{\alpha}}$ associated to
-the angle $\alpha$.
+$\left[0,2\pi\right]$, the algorithm will determine the
+coordinates of the vector $\overrightarrow{v_{\alpha}}$ of the trigonometric
+circle associated to the angle $\alpha$.
 Its coordinates are :
 ```math
 \overrightarrow{v_{\alpha}} =
@@ -22,7 +21,7 @@ Its coordinates are :
 
 The principle of the algorithm is to converge a vector
 $\overrightarrow{v}$ of known angle (and therefore of known coordinates) by
-successive rotations of angles closer and closer to 0 toward the vector
+successive rotations of angles closer and closer to $0$ toward the vector
 $\overrightarrow{v_{\alpha}}$.  
 At each rotation, the coordinates of the vector $\overrightarrow{v}$ are
 computed. The coodinates of the final vector $\overrightarrow{v}$ are the cosine
@@ -35,16 +34,6 @@ $\gamma_{i} > \gamma_{i+1}$ is defined.
 
 The vector $\overrightarrow{v_{i}}$ is rotated by the angle $\gamma_{i}$ either
 clockwise or counterclockwise to converge towards $\overrightarrow{v_{\alpha}}$.
-
-For $i=0$ :  
-* If $\alpha - \gamma_{0} < 0 $, rotation is clockwise.  
-* If $\alpha - \gamma_{0} > 0 $, rotation is counterclockwise.
-
-$\forall i \in \\{ 1,...,n \\}$ :
-* If $\alpha + \sum_{k=0}^{i-1}\sigma_{k}\gamma_{k} - \gamma_{i} < 0$,
-rotation is clockwise.
-* If $\alpha + \sum_{k=0}^{i-1}\sigma_{k}\gamma_{k} - \gamma_{i} > 0$,
-rotation is counterclockwise.
 
 So vector $\overrightarrow{v_{i+1}}$ is created as :
 
@@ -85,12 +74,13 @@ is :
 \end{align}
 ```
 
-The angles $\gamma_{i}$ are choosen such as $\gamma_{i}=\arctan{({2}^{-i})}$.
+The angles $\gamma_{i}$ are choosen such as
+$\gamma_{i}=\arctan{\left({2}^{-i}\right)}$.
 
 The relation between $\overrightarrow{v_{i}}$ and $\overrightarrow{v_{i+1}}$
 is then :
 ```math
-\overrightarrow{v_{i+1}} = \cos{ \left( \arctan(2^{-i}) \right) }
+\overrightarrow{v_{i+1}} = \cos{ \left( \arctan{\left({2}^{-i}\right)} \right) }
   \begin{bmatrix}
     1 & -\sigma_{i}{2}^{-i}\\
     \sigma_{i}{2}^{-i} & 1
@@ -100,13 +90,16 @@ is then :
 
 ### Multiplier coefficient
 
-The value $\cos{\left(\arctan(2^{-i})\right)}$ does not depend on $\sigma_{i}$.
+The value $\cos{\left(\arctan{\left({2}^{-i}\right)}\right)}$ does not depend on
+$\sigma_{i}$.  
 So they can be ignored during each rotation and factorized into a multiplier
 coefficient that depends on $n$.
 ```math
-K(n) = \prod_{i=0}^{n-1}{ K_{i} }
-     = \prod_{i=0}^{n-1}{ \cos{ \left( \arctan(2^{-i}) \right) } }
-     = \prod_{i=0}^{n-1}{ \frac{1}{\sqrt{1+2^{-2i}}} }
+\begin{align}
+K(n) &= \prod_{i=0}^{n-1}{ K_{i} } \\
+     &= \prod_{i=0}^{n-1}{ \cos{\left(\arctan{\left({2}^{-i}\right)}\right)}} \\
+     &= \prod_{i=0}^{n-1}{ \frac{1}{\sqrt{1+2^{-2i}}} }
+\end{align}
 ```
 
 ## Implementation of the algorithm
@@ -129,18 +122,18 @@ encoded on a 16 bits signed integer.
 
 ### Range reduction
 
-The first step of the algorithm is to reduce the range of the input angle using
-trigonometric formulas.
+The first step of the algorithm is to reduce the range of the input angle
+$\alpha$ using trigonometric formulas.
 
-If the input angle $\alpha$ is greater than $\frac{3\pi}{2}$ :
+If $\alpha \gt \frac{3\pi}{2}$ :
 * $cos(\alpha) = cos(2\pi-\alpha)$
 * $sin(\alpha) = -sin(2\pi-\alpha)$
 
-If the input angle $\alpha$ is between $\pi$ and $\frac{3\pi}{2}$ :
+If $\frac{3\pi}{2} \gt \alpha \gt \pi$ :
 * $cos(\alpha) = -cos(\alpha-\pi)$
 * $sin(\alpha) = -sin(\alpha-\pi)$
 
-If the input angle $\alpha$ is between $\frac{\pi}{2}$ and $\pi$ :
+If $\pi \gt \alpha \gt \frac{\pi}{2}$ :
 * $cos(\alpha) = -cos(\pi-\alpha)$
 * $sin(\alpha) = sin(\pi-\alpha)$
 
