@@ -35,6 +35,8 @@ $\gamma_{i} > \gamma_{i+1}$ is defined.
 The vector $\overrightarrow{v_{i}}$ is rotated by the angle $\gamma_{i}$ either
 clockwise or counterclockwise to converge towards $\overrightarrow{v_{\alpha}}$.
 
+<img src="doc/gamma_angles.svg" alt="gamma angles" width="400"/>
+
 So vector $\overrightarrow{v_{i+1}}$ is created as :
 
 ```math
@@ -88,10 +90,13 @@ is then :
   \overrightarrow {v_{i}} 
 ```
 
+So the rotation can be computed using division by a power of two which can be
+implemented as a bit shift.
+
 ### Multiplier coefficient
 
-The value $\cos{\left(\arctan{\left({2}^{-i}\right)}\right)}$ does not depend on
-$\sigma_{i}$.  
+The values $K_{i}=\cos{\left(\arctan{\left({2}^{-i}\right)}\right)}$ does not
+depend on $\sigma_{i}$.  
 So they can be ignored during each rotation and factorized into a multiplier
 coefficient that depends on $n$.
 ```math
